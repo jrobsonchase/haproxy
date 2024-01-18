@@ -1570,7 +1570,11 @@ void listener_accept(struct listener *l)
 	 */
 	limit_listener(l, &p->listener_queue);
 	if (p->task && tick_isset(expire))
+	{
+		HA_RWLOCK_RDLOCK(PROXY_LOCK, &p->lock);
 		task_schedule(p->task, expire);
+		HA_RWLOCK_RDUNLOCK(PROXY_LOCK, &p->lock);
+	}
 	goto end;
 }
 
