@@ -2,6 +2,12 @@
 # than blocking about 500 different test files and bug report outputs.
 /.*
 /*
+!/srv.go
+!/test.cfg
+!/nix
+!/flake.lock
+!/flake.nix
+!/.envrc
 !/.cirrus.yml
 !/.gitattributes
 !/.github
