@@ -2062,7 +2062,9 @@ struct task *manage_proxy(struct task *t, void *context, unsigned int state)
 	/* The proxy is not limited so we can re-enable any waiting listener */
 	dequeue_proxy_listeners(p);
  out:
+	HA_RWLOCK_WRLOCK(PROXY_LOCK, &p->lock);
 	t->expire = next;
+	HA_RWLOCK_WRUNLOCK(PROXY_LOCK, &p->lock);
 	task_queue(t);
 	return t;
 }
