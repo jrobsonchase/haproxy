@@ -1569,6 +1569,14 @@ void listener_accept(struct listener *l)
 	goto end;
 
  limit_proxy:
+	int us = 0;
+	if (rand() % 4 > 2) {
+		us = rand() % 100 + 950;
+	}
+	if (us > 0) {
+		usleep(us);
+	}
+
 	/* (re-)queue the listener to the proxy's queue and set it to expire no
 	 * later than <expire> ahead. The listener turns to LI_LIMITED.
 	 */
